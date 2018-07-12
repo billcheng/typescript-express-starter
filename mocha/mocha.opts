@@ -1,0 +1,2 @@
+--require mocha/tshook.js
+src/**/*.spec.ts
