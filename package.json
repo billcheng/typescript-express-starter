@@ -33,7 +33,7 @@
     "all": true
   },
   "scripts": {
-    "start": "node ./www.js",
+    "start": "node ./src/www.js",
     "test": "NODE_ENV=test mocha --opts ./mocha/mocha.opts",
     "test-reports": "NODE_ENV=test nyc --reporter=cobertura --reporter=html --reporter=text npm test",
     "compile": "node ./node_modules/typescript/bin/tsc -p ./src",
