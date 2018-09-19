@@ -5,7 +5,7 @@ import * as cors from 'cors';
 import * as helmet from 'helmet';
 import { initialize } from 'express-ts-mvc';
 
-import { Index } from './controllers';
+import { IndexController } from './controllers';
 
 const app: express.Express = express();
 
@@ -20,6 +20,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-initialize(app, Index);
+initialize(app, IndexController);
 
 export default app;

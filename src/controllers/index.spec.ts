@@ -1,36 +1,37 @@
-import * as express from 'express';
 import { Request, Response } from 'express';
-import { createRequest, createResponse, MockResponse } from 'node-mocks-http';
-import { expect } from 'chai';
+import { createRequest, createResponse, MockResponse, MockRequest } from 'node-mocks-http';
 
-import { Index } from './index';
-import { Get } from '../models';
+import { IndexController } from './index';
 
 describe('Index', () => {
 
-    let index: Index;
-    let req: Request;
+    let index: IndexController;
+    let req: MockRequest<Request>;
     let res: MockResponse<Response>;
 
     beforeEach(() => {
-        req = createRequest({
-            headers: { 'Authorization': 'Bearer Access-Token' }, // optional: oauth
-            route: { // optional to mock the path
-                path: 'the-path'
-            }
-        });
-        req.app = express();
+
+        index = new IndexController();
+        req = createRequest();
         res = createResponse();
 
-        index = new Index();
     });
 
-    it('get()', () => {
 
-        index.get(req, res);
+    describe('GIVEN', () => {
 
-        expect(res.statusCode).to.equal(200);
-        expect(JSON.parse(res._getData())).to.eql(<Get>{ test: true });
+        describe('WHEN', () => {
+
+            beforeEach(() => {
+                index.get(req, res);
+            });
+
+            it('THEN', () => {
+                expect(res.statusCode).toBe(200);
+            });
+
+        });
+
     });
 
 });
