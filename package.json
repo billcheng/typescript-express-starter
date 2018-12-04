@@ -13,7 +13,7 @@
     "test-reports": "NODE_ENV=test nyc --reporter=cobertura --reporter=html --reporter=text npm test",
     "compile": "node ./node_modules/typescript/bin/tsc -p ./src",
     "post-compile": "cp package*.json out",
-    "watch": " node ./node_modules/typescript/bin/tsc -w -p ./src"
+    "test:watch": "nodemon --ext ts --exec \"npm test\""
   },
   "nyc": {
     "include": [
