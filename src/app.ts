@@ -3,11 +3,13 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
-import { initialize } from 'express-ts-mvc';
 import * as expressGraphQL from 'express-graphql';
 import { buildSchema } from 'graphql';
+import { readFileSync } from 'fs';
 
-import { IndexController } from './controllers';
+import { getCourse } from './resolvers/getCourse';
+import { getCourses } from './resolvers/getCourses';
+import { updateCourseTopic } from './resolvers/updateCourseTopic';
 
 const app: express.Express = express();
 
@@ -23,14 +25,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // graphql schema
-const schema = buildSchema(`
-    type Query {
-        message: String
-    }
-`);
+const gql = readFileSync(`${__dirname}/schema.gql`, 'utf8');
+const schema = buildSchema(gql);
 
 const root = {
-    message: () => 'this is a test'
+    course: getCourse,
+    courses: getCourses,
+    updateCourseTopic
 };
 
 app.use('/graphql', expressGraphQL({
@@ -38,7 +39,5 @@ app.use('/graphql', expressGraphQL({
     rootValue: root,
     graphiql: true
 }));
-
-initialize(app, IndexController);
 
 export default app;

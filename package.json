@@ -11,8 +11,8 @@
     "start": "node ./src/www.js",
     "test": "NODE_ENV=test ts-node ./node_modules/jasmine/bin/jasmine",
     "test-reports": "NODE_ENV=test nyc --reporter=cobertura --reporter=html --reporter=text npm test",
-    "compile": "node ./node_modules/typescript/bin/tsc -p ./src",
-    "post-compile": "cp package*.json out",
+    "compile": "node ./node_modules/typescript/bin/tsc -p ./src --sourceMap false",
+    "post-compile": "cp package*.json out && cp src/schema.gql out/src",
     "test:watch": "nodemon --ext ts --exec \"npm test\""
   },
   "nyc": {
@@ -45,7 +45,6 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-graphql": "^0.7.1",
-    "express-ts-mvc": "^0.0.3",
     "graphql": "^14.1.0",
     "helmet": "^3.12.0",
     "morgan": "^1.9.1"
